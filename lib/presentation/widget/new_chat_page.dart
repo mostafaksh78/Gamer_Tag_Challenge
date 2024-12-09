@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamer_tag/data/entity/message.dart';
 import 'package:gamer_tag/domain/model/model.dart';
-import 'package:gamer_tag/presentation/message_bloc/bloc.dart';
-import 'package:gamer_tag/presentation/message_bloc/event/event.dart';
 import 'package:gamer_tag/presentation/new_bloc/bloc.dart';
 import 'package:gamer_tag/presentation/new_bloc/event/event.dart';
 import 'package:gamer_tag/presentation/new_bloc/state/state.dart';
@@ -116,8 +114,8 @@ class _NewChatPageState extends State<NewChatPage> {
                             ),
                             key: ValueKey<Entity>(message),
                             onDismissed: (direction) {
-                              BlocProvider.of<MessageBloc>(context)
-                                  .add(RemoveMessage(index));
+                              BlocProvider.of<ListBloc>(context)
+                                  .add(RemoveMessageEventIndex(index));
                             },
                             child: SlideTransition(
                               position: animation.drive(
@@ -185,14 +183,21 @@ class _NewChatPageState extends State<NewChatPage> {
                     );
               },
             );
+          case RemoveSingleMessageStateWithOutAnimation state:
+            _listKey.currentState?.removeItem(
+              state.indexRemoved,
+                  (context, animation) {
+                return Container();
+              },
+            );
             break;
         }
       },
       buildWhen: (previous, current) {
-        return current is! RefreshDataState && current is! RemoveSingleMessageState;
+        return current is! RefreshDataState && current is! RemoveSingleMessageState  && current is! RemoveSingleMessageStateWithOutAnimation;
       },
       listenWhen: (previous, current) {
-        return current is RefreshDataState || current is RemoveSingleMessageState;
+        return current is RefreshDataState || current is RemoveSingleMessageState || current is RemoveSingleMessageStateWithOutAnimation;
       },
     );
   }

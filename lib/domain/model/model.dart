@@ -27,7 +27,7 @@ class Message extends MessageEntity with ReadDateParser, DateParser {
             readMinute: entity.readMinute,timer: entity.timer);
 
   @override
-  String get date =>"$year :${month.toMonth()} $day";
+  String get date =>DateTime(year, month, day, hour, minute).convert(startDate);
 
   @override
   String get readDate => "$readHour:$readMinute";
@@ -43,7 +43,7 @@ class Date extends Entity with DateParser {
   Date(this.year, this.month, this.day, this.hour, this.minute);
 
   @override
-  String get date => "$year :${month.toMonth()} $day";
+  String get date => DateTime(year, month, day, hour, minute).convert(startDate);
 
   @override
   List<Object?> get props => [year,month,day,hour,minute];

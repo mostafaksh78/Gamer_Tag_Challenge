@@ -20,6 +20,12 @@ class RemoveMessageEvent extends ListEvent{
   final Message message;
   RemoveMessageEvent(this.message);
 }
+
+class RemoveMessageEventIndex extends ListEvent{
+  final int index;
+  RemoveMessageEventIndex(this.index);
+}
+
 class MessageInsertedEvent extends ListEvent{
   final Message message;
   MessageInsertedEvent(this.message);

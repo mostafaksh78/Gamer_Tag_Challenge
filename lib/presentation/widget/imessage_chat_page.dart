@@ -1,26 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' as mat;
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gamer_tag/data/entity/message.dart';
-import 'package:gamer_tag/domain/model/model.dart';
-import 'package:gamer_tag/domain/use_case/use_case.dart';
-import 'package:gamer_tag/presentation/input_bloc/bloc.dart';
-import 'package:gamer_tag/presentation/message_bloc/bloc.dart';
-import 'package:gamer_tag/presentation/message_bloc/event/event.dart';
-import 'package:gamer_tag/presentation/message_bloc/state/state.dart';
-import 'package:gamer_tag/presentation/user_bloc/bloc.dart';
-import 'package:gamer_tag/presentation/user_bloc/event/event.dart';
-import 'package:gamer_tag/presentation/user_bloc/state/state.dart';
 import 'package:gamer_tag/presentation/widget/app_bar.dart';
-import 'package:gamer_tag/presentation/widget/chat_bubble.dart';
-import 'package:gamer_tag/presentation/widget/chat_page.dart';
-import 'package:gamer_tag/presentation/widget/date_bubble.dart';
 import 'package:gamer_tag/presentation/widget/new_chat_page.dart';
-import 'package:get_it/get_it.dart';
 
-import 'imessage_input_bar.dart';
 
 class IMessageChatPage extends StatelessWidget {
   const IMessageChatPage({super.key});

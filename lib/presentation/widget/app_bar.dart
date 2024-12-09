@@ -60,6 +60,7 @@ class AppBar extends StatelessWidget {
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
+                                SizedBox(width: 10,),
                                 Text(
                                   state.user.name,
                                   style: CupertinoTheme.of(context)

@@ -57,7 +57,7 @@ class RepositoryImpl extends Repository {
     await messageSource.sendMessage(message, user);
     emitNewMessage(user, message);
     if (message.timer) {
-      Future.delayed(const Duration(seconds: 2)).then(
+      Future.delayed(const Duration(minutes: 1)).then(
         (value) {
           removeMessage(message, user);
         },

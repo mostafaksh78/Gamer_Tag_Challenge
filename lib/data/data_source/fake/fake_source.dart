@@ -3,7 +3,6 @@ import 'package:gamer_tag/data/entity/message.dart';
 import 'package:gamer_tag/data/entity/user.dart';
 import 'package:gamer_tag/utils.dart';
 
-DateTime startDate = DateTime.now();
 
 class FakeSource implements MessageSource {
   @override

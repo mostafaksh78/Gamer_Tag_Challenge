@@ -17,3 +17,8 @@ class RemoveSingleMessageState extends ListState{
   final Message message;
   RemoveSingleMessageState(this.message,this.indexRemoved);
 }
+class RemoveSingleMessageStateWithOutAnimation extends ListState{
+  final int indexRemoved;
+  final Message message;
+  RemoveSingleMessageStateWithOutAnimation(this.message,this.indexRemoved);
+}

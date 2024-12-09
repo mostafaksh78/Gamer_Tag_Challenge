@@ -3,7 +3,6 @@ import 'package:gamer_tag/data/entity/message.dart';
 import 'package:gamer_tag/domain/model/model.dart';
 import 'package:gamer_tag/domain/model/user.dart';
 import 'package:gamer_tag/domain/use_case/use_case.dart';
-import 'package:gamer_tag/presentation/message_bloc/state/state.dart';
 import 'package:gamer_tag/presentation/new_bloc/event/event.dart';
 import 'package:gamer_tag/presentation/new_bloc/state/state.dart';
 
@@ -86,6 +85,16 @@ class ListBloc extends Bloc<ListEvent, ListState> {
             emit(RemoveSingleMessageState(message, index));
           }
         }
+      },
+    );
+    on<RemoveMessageEventIndex>(
+          (event, emit) {
+
+          var message = data.removeAt(event.index);
+          if (message is Message) {
+            emit(RemoveSingleMessageStateWithOutAnimation(message, event.index));
+          }
+
       },
     );
     on<StartLoadingEvent>(

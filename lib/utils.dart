@@ -1,17 +1,17 @@
-import 'package:gamer_tag/domain/model/model.dart';
+DateTime startDate = DateTime.now();
 
 extension Date on int {
   String toMonth() {
     switch (this) {
       case 1:
-        return 'January';
+        return 'Jan';
         break;
       case 2:
-        return "February";
+        return "Feb";
       case 3:
-        return "March";
+        return "Mrc";
       case 4:
-        return "April";
+        return "Apr";
       case 5:
         return "May";
       case 6:
@@ -19,38 +19,90 @@ extension Date on int {
       case 7:
         return "July";
       case 8:
-        return "August";
+        return "Aug";
       case 9:
-        return "September";
+        return "Sep";
       case 10:
-        return "October";
+        return "Oct";
       case 11:
-        return "October";
+        return "Oct";
       case 12:
-        return "December";
+        return "Dec";
       default:
         return "Unknown month";
     }
   }
+
+  String toDay() {
+    switch(this){
+      case 1:
+        return "Sat";
+      case 2:
+        return "Sun";
+      case 3:
+        return "Mon";
+      case 4:
+        return "Thu";
+      case 5:
+        return "Wen";
+      case 6:
+        return "Thr";
+      case 7:
+        return "Fri";
+      default:
+        return "Alien Day";
+    }
+  }
 }
+
 extension MinusDate on DateTime {
   DateTime minusHour() {
-    var newHour = this.hour - 1;
-    var newDay = this.day;
-    var newMonth = this.month;
-    var newYear = this.year;
-    if(newHour <= -1){
-      newHour =23;
-      newDay -=1;
+    var newHour = hour - 1;
+    var newDay = day;
+    var newMonth = month;
+    var newYear = year;
+    if (newHour <= -1) {
+      newHour = 23;
+      newDay -= 1;
     }
-    if(newDay<1){
+    if (newDay < 1) {
       newDay = 30;
-      newMonth -=1;
+      newMonth -= 1;
     }
-    if(newMonth<1){
+    if (newMonth < 1) {
       newMonth = 12;
-      newYear -=1;
+      newYear -= 1;
     }
-    return DateTime(newYear,newMonth,newDay,newHour,minute);
+    return DateTime(newYear, newMonth, newDay, newHour, minute);
+  }
+}
+
+extension ConvertDateCompareToDate on DateTime {
+  String convert(DateTime start) {
+    if (day - start.day == 1) {
+      var min = "";
+      if (minute < 10) {
+        min = "0${minute}";
+      } else {
+        min = "${minute}";
+      }
+      return "Yesterday ${hour}:${min}";
+    }
+    if (day - start.day == 0) {
+      var min = "";
+      if (minute < 10) {
+        min = "0${minute}";
+      } else {
+        min = "${minute}";
+      }
+      return "Today ${hour}:${min}";
+    }
+    var min = "";
+    if (minute < 10) {
+      min = "0${minute}";
+    } else {
+      min = "${minute}";
+    }
+    return "${weekday.toDay()}, ${month.toMonth()} $day, ${hour}:${min}";
   }
 }

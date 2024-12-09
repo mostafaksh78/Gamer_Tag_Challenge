@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamer_tag/domain/model/model.dart';
 import 'package:gamer_tag/domain/use_case/use_case.dart';
 import 'package:gamer_tag/presentation/input_bloc/bloc.dart';
-import 'package:gamer_tag/presentation/message_bloc/bloc.dart';
 import 'package:gamer_tag/presentation/new_bloc/bloc.dart';
 import 'package:gamer_tag/presentation/user_bloc/bloc.dart';
 import 'package:gamer_tag/presentation/widget/imessage_chat_page.dart';
@@ -33,19 +32,6 @@ class MyApp extends StatelessWidget {
                 initialUserUseCase: GetIt.I.get<InitialUserUseCase>(),
                 changeUserUseCase: GetIt.I.get<ChangeUserUseCase>(),
               );
-            },
-          ),
-          BlocProvider<MessageBloc>(
-            create: (context) {
-              return MessageBloc(
-                  removeMessageUseCase: GetIt.I.get<RemoveMessageUseCase>(),
-                  loadUseCase: GetIt.I.get<LoadUseCase>(),
-                  removeListenerUseCase:
-                      GetIt.I.get<RemoveMessageListenUseCase>(),
-                  newListenerUseCase: GetIt.I.get<NewMessageListenUseCase>(),
-                  initialUserUseCase: GetIt.I.get<InitialUserUseCase>(),
-                  userChangeListenUseCase:
-                      GetIt.I.get<UserChangeListenUseCase>());
             },
           ),
           BlocProvider<ListBloc>(
