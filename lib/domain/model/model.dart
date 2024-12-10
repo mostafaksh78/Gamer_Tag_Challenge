@@ -9,13 +9,25 @@ mixin ReadDateParser on Entity {
 }
 
 class Message extends MessageEntity with ReadDateParser, DateParser {
+  final DateTime _date;
+  final DateTime? _readDate;
+
   Message(super.text, super.year, super.month, super.day, super.hour,
       super.minute, super.read, super.sendOrRecieve,
       {super.readYear,
       super.readMonth,
       super.readDay,
       super.readHour,
-      super.readMinute,super.timer});
+      super.readMinute,
+      super.timer})
+      : _date = DateTime(year, month, day, hour, minute),
+        _readDate = (readYear == null ||
+                readMonth == null ||
+                readDay == null ||
+                readMinute == null ||
+                readHour == null)
+            ? null
+            : DateTime(readYear, readMonth, readDay, readHour, readMinute);
 
   Message.entity(MessageEntity entity)
       : this(entity.text, entity.year, entity.month, entity.day, entity.hour,
@@ -24,13 +36,15 @@ class Message extends MessageEntity with ReadDateParser, DateParser {
             readMonth: entity.readMonth,
             readDay: entity.readDay,
             readHour: entity.readHour,
-            readMinute: entity.readMinute,timer: entity.timer);
+            readMinute: entity.readMinute,
+            timer: entity.timer);
 
   @override
-  String get date =>DateTime(year, month, day, hour, minute).convert(startDate);
+  String get date =>
+      _date.convert(startDate);
 
   @override
-  String get readDate => "$readHour:$readMinute";
+  String get readDate => "${_readDate?.hour}:${_readDate?.minute}";
 }
 
 class Date extends Entity with DateParser {
@@ -43,8 +57,9 @@ class Date extends Entity with DateParser {
   Date(this.year, this.month, this.day, this.hour, this.minute);
 
   @override
-  String get date => DateTime(year, month, day, hour, minute).convert(startDate);
+  String get date =>
+      DateTime(year, month, day, hour, minute).convert(startDate);
 
   @override
-  List<Object?> get props => [year,month,day,hour,minute];
+  List<Object?> get props => [year, month, day, hour, minute];
 }
