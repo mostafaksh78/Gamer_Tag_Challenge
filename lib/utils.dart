@@ -25,11 +25,11 @@ extension Date on int {
       case 10:
         return "Oct";
       case 11:
-        return "Oct";
+        return "Nov";
       case 12:
         return "Dec";
       default:
-        return "Unknown month";
+        return "Alien Month";
     }
   }
 
@@ -82,27 +82,27 @@ extension ConvertDateCompareToDate on DateTime {
     if (day - start.day == 1) {
       var min = "";
       if (minute < 10) {
-        min = "0${minute}";
+        min = "0$minute";
       } else {
-        min = "${minute}";
+        min = "$minute";
       }
-      return "Yesterday ${hour}:${min}";
+      return "Yesterday $hour:$min";
     }
     if (day - start.day == 0) {
       var min = "";
       if (minute < 10) {
-        min = "0${minute}";
+        min = "0$minute";
       } else {
-        min = "${minute}";
+        min = "$minute";
       }
-      return "Today ${hour}:${min}";
+      return "Today $hour:$min";
     }
     var min = "";
     if (minute < 10) {
-      min = "0${minute}";
+      min = "0$minute";
     } else {
-      min = "${minute}";
+      min = "$minute";
     }
-    return "${weekday.toDay()}, ${month.toMonth()} $day, ${hour}:${min}";
+    return "${weekday.toDay()}, ${month.toMonth()} $day, $hour:$min";
   }
 }
