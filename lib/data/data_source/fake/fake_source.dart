@@ -4,10 +4,10 @@ import 'package:gamer_tag/data/entity/user.dart';
 import 'package:gamer_tag/utils.dart';
 
 
-class FakeSource implements MessageSource {
+class FakeSource extends MessageSource {
   @override
   Future<List<MessageEntity>> loadMessages(int from, int to,UserEntity user) async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     var ret = <MessageEntity>[];
     var date = startDate;
     for (int i = from; i < to; i++) {
@@ -39,21 +39,33 @@ class FakeSource implements MessageSource {
   @override
   Future<List<UserEntity>> loadUsers() async {
     return <UserEntity>[
-      UserEntity("Mostafa", "M1"),
-      UserEntity("Ali", "A1"),
-      UserEntity("Danial", "D1")
+      const UserEntity("Mostafa", "M1"),
+      const UserEntity("Ali", "A1"),
+      const UserEntity("Danial", "D1")
     ];
   }
 
   @override
   Future<void> removeMessage(MessageEntity message,UserEntity user) async {
     // await Future.delayed(Duration(seconds: 1));
+    emitRemoveMessage(user, message);
     return;
   }
 
   @override
   Future<void> sendMessage(MessageEntity message,UserEntity user) async {
     // await Future.delayed(Duration(seconds: 1));
+    emitNewMessage(user, message);
+    if (message.timer) {
+      Future.delayed(const Duration(minutes: 1)).then(
+            (value) {
+          removeMessage(message, user);
+        },
+      );
+    }
     return;
   }
+
+
+
 }

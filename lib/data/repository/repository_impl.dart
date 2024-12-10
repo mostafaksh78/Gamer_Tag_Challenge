@@ -1,5 +1,6 @@
 import 'package:gamer_tag/data/data_source/data_source.dart';
 import 'package:gamer_tag/data/entity/message.dart';
+import 'package:gamer_tag/data/entity/user.dart';
 import 'package:gamer_tag/domain/model/model.dart';
 import 'package:gamer_tag/domain/model/user.dart';
 import 'package:gamer_tag/domain/repository/repository.dart';
@@ -7,7 +8,14 @@ import 'package:gamer_tag/domain/repository/repository.dart';
 class RepositoryImpl extends Repository {
   final MessageSource messageSource;
 
-  RepositoryImpl(this.messageSource) : super();
+  RepositoryImpl(this.messageSource) : super(){
+    messageSource.removeMessageStream.listen(((UserEntity, MessageEntity) event) {
+      emitRemoveMessage(User.entity(event.$1), Message.entity(event.$2));
+    },);
+    messageSource.newMessageStream.listen(((UserEntity, MessageEntity) event) {
+      emitNewMessage(User.entity(event.$1), Message.entity(event.$2));
+    },);
+  }
 
   @override
   Future<List<Entity>> loadData(int from, int to, User user) async {
@@ -49,20 +57,12 @@ class RepositoryImpl extends Repository {
   @override
   Future<void> removeMessage(Message message, User user) async {
     await messageSource.removeMessage(message, user);
-    emitRemoveMessage(user, message);
   }
 
   @override
   Future<void> sendMessage(Message message, User user) async {
     await messageSource.sendMessage(message, user);
-    emitNewMessage(user, message);
-    if (message.timer) {
-      Future.delayed(const Duration(minutes: 1)).then(
-        (value) {
-          removeMessage(message, user);
-        },
-      );
-    }
+
   }
 
   @override
